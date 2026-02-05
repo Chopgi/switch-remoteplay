@@ -1,4 +1,4 @@
-import { ControllerState } from '../components/Controller/ControllerState'
+import {ControllerState} from '../components/Controller/ControllerState'
 
 /**
  * @param command The command the execute.
@@ -6,23 +6,23 @@ import { ControllerState } from '../components/Controller/ControllerState'
  * @param updateGivenState If `true`, then the passed in state should be updated. Defaults to `false`.
  */
 export interface SendCommand {
-	(command: string, controllerState?: ControllerState,
-		updateGivenState?: boolean): void
+    (command: string, controllerState?: ControllerState,
+     updateGivenState?: boolean): void
 }
 
 export abstract class KeyBinding {
-	constructor(
-		public sendCommand: SendCommand,
-		public controllerState: ControllerState) {
-	}
+    constructor(
+        public sendCommand: SendCommand,
+        public controllerState: ControllerState) {
+    }
 
-	abstract getName(): string
+    abstract getName(): string
 
-	public start(): void {
-		console.debug(`${this.getName()}: Starting`)
-	}
+    public start(): void {
+        console.debug(`${this.getName()}: Starting`)
+    }
 
-	public stop(): void {
-		console.debug(`${this.getName()}: Stopping`)
-	}
+    public stop(): void {
+        console.debug(`${this.getName()}: Stopping`)
+    }
 }

@@ -1,193 +1,193 @@
-import { ControllerState } from '../components/Controller/ControllerState'
+import {ControllerState} from '../components/Controller/ControllerState'
 import actions from './actions'
-import { KeyBinding, SendCommand } from './KeyBinding'
+import {KeyBinding, SendCommand} from './KeyBinding'
 
 /**
  * Keyboard bindings. No mouse control.
  */
 export default class KeyboardBinding extends KeyBinding {
-	keyMap: any = {
-		KeyW: actions.leftStickFullUp,
-		KeyS: actions.leftStickFullDown,
-		KeyA: actions.leftStickFullLeft,
-		KeyD: actions.leftStickFullRight,
+    keyMap: any = {
+        KeyW: actions.leftStickFullUp,
+        KeyS: actions.leftStickFullDown,
+        KeyA: actions.leftStickFullLeft,
+        KeyD: actions.leftStickFullRight,
 
-		ArrowLeft: actions.y,
-		ArrowRight: actions.a,
-		ArrowUp: actions.x,
-		ArrowDown: actions.b,
+        ArrowLeft: actions.y,
+        ArrowRight: actions.a,
+        ArrowUp: actions.x,
+        ArrowDown: actions.b,
 
-		LeftClick: actions.a,
-		Space: actions.b,
+        LeftClick: actions.a,
+        Space: actions.b,
 
-		KeyQ: actions.l,
-		KeyE: actions.r,
-		ShiftLeft: {
-			isDown: false,
-		},
-		ShiftRight: {
-			isDown: false,
-		},
+        KeyQ: actions.l,
+        KeyE: actions.r,
+        ShiftLeft: {
+            isDown: false,
+        },
+        ShiftRight: {
+            isDown: false,
+        },
 
-		KeyZ: actions.minus,
-		KeyX: actions.plus,
+        KeyZ: actions.minus,
+        KeyX: actions.plus,
 
-		KeyC: actions.capture,
-		KeyV: actions.home,
-	}
+        KeyC: actions.capture,
+        KeyV: actions.home,
+    }
 
-	shiftKeyMap = {
-		KeyA: actions.arrowLeft,
-		KeyD: actions.arrowRight,
-		KeyW: actions.arrowUp,
-		KeyS: actions.arrowDown,
+    shiftKeyMap = {
+        KeyA: actions.arrowLeft,
+        KeyD: actions.arrowRight,
+        KeyW: actions.arrowUp,
+        KeyS: actions.arrowDown,
 
-		KeyQ: actions.zl,
-		KeyE: actions.zr,
+        KeyQ: actions.zl,
+        KeyE: actions.zr,
 
-		// These used to be activated when Ctrl was pressed
-		// but that could cause someone to activate other commands which might close the window.
-		ArrowUp: actions.rightStickFullUp,
-		ArrowDown: actions.rightStickFullDown,
-		ArrowLeft: actions.rightStickFullLeft,
-		ArrowRight: actions.rightStickFullRight,
-	}
+        // These used to be activated when Ctrl was pressed
+        // but that could cause someone to activate other commands which might close the window.
+        ArrowUp: actions.rightStickFullUp,
+        ArrowDown: actions.rightStickFullDown,
+        ArrowLeft: actions.rightStickFullLeft,
+        ArrowRight: actions.rightStickFullRight,
+    }
 
-	constructor(
-		sendCommand: SendCommand,
-		controllerState: ControllerState) {
-		super(sendCommand, controllerState)
-		this.handleKeyDown = this.handleKeyDown.bind(this)
-		this.handleKeyUp = this.handleKeyUp.bind(this)
-	}
+    constructor(
+        sendCommand: SendCommand,
+        controllerState: ControllerState) {
+        super(sendCommand, controllerState)
+        this.handleKeyDown = this.handleKeyDown.bind(this)
+        this.handleKeyUp = this.handleKeyUp.bind(this)
+    }
 
-	getName(): string {
-		return "Keyboard"
-	}
+    getName(): string {
+        return "Keyboard"
+    }
 
-	start: () => void = () => {
-		super.start()
-		document.addEventListener('keydown', this.handleKeyDown)
-		document.addEventListener('keyup', this.handleKeyUp)
+    start: () => void = () => {
+        super.start()
+        document.addEventListener('keydown', this.handleKeyDown)
+        document.addEventListener('keyup', this.handleKeyUp)
 
-		// No mouse control is used in this class but another class can be set up to do it.
-		// It would be tricky to do in general and should probably be specific to the game.
-		// document.addEventListener('mousemove', mouseMoveHandler)
-		// document.addEventListener('mousedown', (e: MouseEvent) => {
-		//     // Allow if clicking on 'send-mode-toggle'
-		//     // if (e!.target!.name === 'send-mode-toggle') {
-		//     // 	return
-		//     // }
-		//     this.handleKey(e, 'LeftClick', 'down')
-		// })
+        // No mouse control is used in this class but another class can be set up to do it.
+        // It would be tricky to do in general and should probably be specific to the game.
+        // document.addEventListener('mousemove', mouseMoveHandler)
+        // document.addEventListener('mousedown', (e: MouseEvent) => {
+        //     // Allow if clicking on 'send-mode-toggle'
+        //     // if (e!.target!.name === 'send-mode-toggle') {
+        //     //   return
+        //     // }
+        //     this.handleKey(e, 'LeftClick', 'down')
+        // })
 
-		// document.addEventListener('mouseup', e => {
-		//     this.handleKey(e, 'LeftClick', 'up')
-		// })
+        // document.addEventListener('mouseup', e => {
+        //     this.handleKey(e, 'LeftClick', 'up')
+        // })
 
-	}
+    }
 
-	stop(): void {
-		super.stop()
-		document.removeEventListener('keydown', this.handleKeyDown)
-		document.removeEventListener('keyup', this.handleKeyUp)
-	}
+    stop(): void {
+        super.stop()
+        document.removeEventListener('keydown', this.handleKeyDown)
+        document.removeEventListener('keyup', this.handleKeyUp)
+    }
 
-	private handleKeyDown(e: KeyboardEvent): void {
-		if (!e.repeat) {
-			// Only run the comment once per press.
-			this.handleKey(e, e.code, 'down')
-		} else {
-			e.preventDefault()
-		}
-	}
+    private handleKeyDown(e: KeyboardEvent): void {
+        if (!e.repeat) {
+            // Only run the comment once per press.
+            this.handleKey(e, e.code, 'down')
+        } else {
+            e.preventDefault()
+        }
+    }
 
-	private handleKeyUp(e: KeyboardEvent): void {
-		if (!e.repeat) {
-			// Only run the comment once per press.
-			this.handleKey(e, e.code, 'up')
-		} else {
-			e.preventDefault()
-		}
-	}
+    private handleKeyUp(e: KeyboardEvent): void {
+        if (!e.repeat) {
+            // Only run the comment once per press.
+            this.handleKey(e, e.code, 'up')
+        } else {
+            e.preventDefault()
+        }
+    }
 
 
-	// Keeping in case we want to handle something on mouse movement later.
-	// private mouseMoveHandler(e: MouseEvent) {
-	// 	// Top left of the page is 0, 0.
-	// 	const newX = e.pageX
-	// 	const newY = e.pageY
-	// 	if (currentMousePos.x !== undefined) {
-	// 		let dX = newX - currentMousePos.x
-	// 		let dY = currentMousePos.y - newY
+    // Keeping in case we want to handle something on mouse movement later.
+    // private mouseMoveHandler(e: MouseEvent) {
+    //  // Top left of the page is 0, 0.
+    //  const newX = e.pageX
+    //  const newY = e.pageY
+    //  if (currentMousePos.x !== undefined) {
+    //      let dX = newX - currentMousePos.x
+    //      let dY = currentMousePos.y - newY
 
-	// 		if (Math.abs(dX) >= mouseSensitivityX) {
-	// 			currentMousePos.x = newX
-	// 		} else {
-	// 			dX = 0
-	// 		}
-	// 		if (Math.abs(dY) >= mouseSensitivityY) {
-	// 			currentMousePos.y = newY
-	// 		} else {
-	// 			dY = 0
-	// 		}
-	// 		if (Math.abs(dX) > 0 && Math.abs(dY) > 0) {
-	// 			// console.debug(dX,dY)
-	// 		}
-	// 	} else {
-	// 		currentMousePos.x = newX
-	// 		currentMousePos.y = newY
-	// 	}
-	// }
+    //      if (Math.abs(dX) >= mouseSensitivityX) {
+    //          currentMousePos.x = newX
+    //      } else {
+    //          dX = 0
+    //      }
+    //      if (Math.abs(dY) >= mouseSensitivityY) {
+    //          currentMousePos.y = newY
+    //      } else {
+    //          dY = 0
+    //      }
+    //      if (Math.abs(dX) > 0 && Math.abs(dY) > 0) {
+    //          // console.debug(dX,dY)
+    //      }
+    //  } else {
+    //      currentMousePos.x = newX
+    //      currentMousePos.y = newY
+    //  }
+    // }
 
-	private handleKey(e: KeyboardEvent | MouseEvent, keyName: string, keyDirection: string) {
-		const targetName = (e.target as any).name
-		if (targetName === 'editMacro' || targetName === 'macroName') {
-			return
-		}
-		let keyMapping = this.keyMap
+    private handleKey(e: KeyboardEvent | MouseEvent, keyName: string, keyDirection: string) {
+        const targetName = (e.target as any).name
+        if (targetName === 'editMacro' || targetName === 'macroName') {
+            return
+        }
+        let keyMapping = this.keyMap
 
-		if (keyName in keyMapping) {
-			keyMapping[keyName].isDown = keyDirection === 'down'
-		}
+        if (keyName in keyMapping) {
+            keyMapping[keyName].isDown = keyDirection === 'down'
+        }
 
-		if ((keyMapping.ShiftLeft.isDown || keyMapping.ShiftRight.isDown) && keyName in this.shiftKeyMap) {
-			keyMapping = this.shiftKeyMap
-		}
+        if ((keyMapping.ShiftLeft.isDown || keyMapping.ShiftRight.isDown) && keyName in this.shiftKeyMap) {
+            keyMapping = this.shiftKeyMap
+        }
 
-		const action = keyMapping[keyName]
-		if (action) {
-			const controllerState = this.controllerState as any
+        const action = keyMapping[keyName]
+        if (action) {
+            const controllerState = this.controllerState as any
 
-			if (action.dirName) {
-				const stick = controllerState[action.name]
-				if (stick) {
-					switch (action.dirName) {
-						case 'left':
-							stick.horizontalValue = keyDirection === 'down' ? -1 : 0
-							break
-						case 'right':
-							stick.horizontalValue = keyDirection === 'down' ? +1 : 0
-							break
-						case 'up':
-							stick.verticalValue = keyDirection === 'down' ? -1 : 0
-							break
-						case 'down':
-							stick.verticalValue = keyDirection === 'down' ? +1 : 0
-							break
-					}
-				}
-			} else {
-				const button = controllerState[action.name]
+            if (action.dirName) {
+                const stick = controllerState[action.name]
+                if (stick) {
+                    switch (action.dirName) {
+                        case 'left':
+                            stick.horizontalValue = keyDirection === 'down' ? -1 : 0
+                            break
+                        case 'right':
+                            stick.horizontalValue = keyDirection === 'down' ? +1 : 0
+                            break
+                        case 'up':
+                            stick.verticalValue = keyDirection === 'down' ? -1 : 0
+                            break
+                        case 'down':
+                            stick.verticalValue = keyDirection === 'down' ? +1 : 0
+                            break
+                    }
+                }
+            } else {
+                const button = controllerState[action.name]
 
-				if (button) {
-					button.isPressed = keyDirection === 'down'
-				}
-			}
-			this.sendCommand(action[keyDirection], this.controllerState)
-			e.preventDefault()
-		} else if (e.type === 'keydown') {
-			console.debug(`Pressed ${(e as KeyboardEvent).code}.`)
-		}
-	}
+                if (button) {
+                    button.isPressed = keyDirection === 'down'
+                }
+            }
+            this.sendCommand(action[keyDirection], this.controllerState)
+            e.preventDefault()
+        } else if (e.type === 'keydown') {
+            console.debug(`Pressed ${(e as KeyboardEvent).code}.`)
+        }
+    }
 }
