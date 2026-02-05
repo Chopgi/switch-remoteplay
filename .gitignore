@@ -130,3 +130,36 @@ dmypy.json
 
 build/
 node_modules/
+
+# IDEs
+.idea/              # PyCharm/IntelliJ
+.vscode/            # Visual Studio Code
+*.swp               # Vim
+*.swo
+*~                  # Emacs
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userossjcache
+*.sln.docstates
+
+# OS Files
+.DS_Store           # macOS
+Thumbs.db           # Windows
+
+# Type checking
+.pytype/
+.pyright/
+
+# Additional logs and temp files
+logs/
+*.log.*
+tmp/
+temp/
+*.tmp
+
+# Yarn
+yarn-error.log
+yarn-debug.log*
