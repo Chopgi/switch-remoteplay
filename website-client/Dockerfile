@@ -13,4 +13,4 @@ COPY src/ ./src/
 
 RUN yarn build
 
-CMD yarn start-prod
+CMD ["yarn", "start-prod"]
