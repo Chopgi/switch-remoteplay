@@ -1,6 +1,6 @@
 import blue from '@material-ui/core/colors/blue'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { createMuiTheme, createStyles, ThemeProvider, withStyles, WithStyles } from '@material-ui/core/styles'
+import { createTheme, createStyles, ThemeProvider, withStyles, WithStyles } from '@material-ui/core/styles'
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import 'typeface-roboto'
@@ -8,7 +8,7 @@ import './App.css'
 import CustomAppBar from './AppBar'
 import PlayGame from './components/PlayGame'
 
-const theme = createMuiTheme({
+const theme = createTheme({
 	palette: {
 		type: 'dark',
 		primary: blue,
