@@ -1,14 +1,14 @@
 import blue from '@material-ui/core/colors/blue'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { createMuiTheme, createStyles, ThemeProvider, withStyles, WithStyles } from '@material-ui/core/styles'
+import { createTheme, createStyles, ThemeProvider, withStyles, WithStyles } from '@material-ui/core/styles'
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import 'typeface-roboto'
 import './App.css'
 import CustomAppBar from './AppBar'
 import PlayGame from './components/PlayGame'
 
-const theme = createMuiTheme({
+const theme = createTheme({
 	palette: {
 		type: 'dark',
 		primary: blue,
@@ -38,13 +38,11 @@ class App extends React.Component<WithStyles<typeof styles>> {
 				<div className={classes.root}>
 					<CustomAppBar />
 					<div className={classes.app}>
-						{/* A <Switch> looks through its children <Route>s and
+						{/* A <Routes> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-						<Switch>
-							<Route path="/">
-								<PlayGame />
-							</Route>
-						</Switch>
+						<Routes>
+							<Route path="/" element={<PlayGame />} />
+						</Routes>
 					</div>
 				</div>
 			</ThemeProvider>
