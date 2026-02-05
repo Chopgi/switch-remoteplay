@@ -2,6 +2,17 @@
 # package ecosystems to update and where the package manifests are located.
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+#
+# MANUAL TRIGGERING:
+# While this configuration runs automatically on a weekly schedule, you can also
+# manually trigger Dependabot checks at any time:
+# 1. Go to the "Insights" tab in the GitHub repository
+# 2. Click "Dependency graph" in the left sidebar
+# 3. Click the "Dependabot" tab
+# 4. Click "Check for updates" button for any ecosystem
+#
+# Alternatively, you can use the GitHub CLI:
+#   gh api repos/{owner}/{repo}/dependabot/alerts
 
 version: 2
 updates:
