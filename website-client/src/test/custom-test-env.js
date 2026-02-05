@@ -6,13 +6,13 @@ const Environment = require('jest-environment-jsdom') // eslint-disable-line @ty
  * A custom environment to set up globals for tests.
  */
 module.exports = class CustomTestEnvironment extends Environment {
-	async setup() {
-		await super.setup()
-		if (typeof this.global.indexedDB === 'undefined') {
-			this.global.indexedDB = require('fake-indexeddb')
-		}
-		if (typeof this.global.IDBKeyRange === 'undefined') {
-			this.global.IDBKeyRange = require("fake-indexeddb/lib/FDBKeyRange")
-		}
-	}
+    async setup() {
+        await super.setup()
+        if (typeof this.global.indexedDB === 'undefined') {
+            this.global.indexedDB = require('fake-indexeddb')
+        }
+        if (typeof this.global.IDBKeyRange === 'undefined') {
+            this.global.IDBKeyRange = require("fake-indexeddb/lib/FDBKeyRange")
+        }
+    }
 }
