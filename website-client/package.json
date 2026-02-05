@@ -21,7 +21,7 @@
 		"serve": "^11.3.2",
 		"socket.io-client": "^3.0.4",
 		"typeface-roboto": "^1.1.13",
-		"typescript": "~3.7.2"
+		"typescript": "~5.9.3"
 	},
 	"scripts": {
 		"start": "react-scripts start",
