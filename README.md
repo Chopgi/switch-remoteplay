@@ -4,7 +4,7 @@ Any and all ideas, suggestions, help and advice are greatly appreciated.
 
 Huge thanks to all original authors and contributers of projects mentioned. 
 # Goals
-* I want to make remoteplay work using NXBT/NUXBT's API instead of joycontrol due to its old dependencies complicating the process of making joycontrol work smoothly.
+* Make remoteplay work using NXBT/NUXBT's API instead of joycontrol due to its old dependencies complicating the process of making joycontrol work smoothly.
 * Discover/replace the use of Mixer's FTL for streaming switch output (or at the least understanding how this is implemented and intended to function)
 * Create a simple way for multiple users to remotely play on a single Nintendo Switch.
 * Provide a simple way to access and control a Nintendo Switch remotely.
@@ -21,13 +21,15 @@ A colleague of mine managed to install the .rpm for NUXBT on their laptop, also 
 
 [Typenoob's NXBT fork](https://github.com/typenoob/nxbt), mentioned in the GBATEMP thread
 
-## Possible Joycontrol Replacements
+## Repos of Note
+* [Dippyshere's CaptureViewer](https://github.com/dippyshere/CaptureViewer) (low-latency HDMI capture viewer for Windows
+### Possible Joycontrol Replacements
 * [NUXBT](https://github.com/hannahbee91/nuxbt) (what I plan to implement)
 * [Poohl's fork of joycontrol](https://github.com/Poohl/joycontrol) (revamp of Mart1nro's original joycontrol)  
-### based on Poohl's fork
-* [Exkuretrol's fork of joycontrol](https://github.com/exkuretrol/joycontrol/tree/modify-the-project-to-modern-pythonos-capatible) (Potentially vibe-coded)
-* [EgestiaN's fork of joycontrol](https://github.com/EgestiaN/joycontrol) (vibe-coded, requires tweaks)
-* [Francescde's fork of joycontrol](https://github.com/Francescde/joycontrol/tree/amiibo_edits) (primarily used for macros, tested on Raspberry Pi)
+  * ### based on Poohl's fork:
+  * [Exkuretrol's fork of joycontrol](https://github.com/exkuretrol/joycontrol/tree/modify-the-project-to-modern-pythonos-capatible) (Potentially vibe-coded)
+  * [EgestiaN's fork of joycontrol](https://github.com/EgestiaN/joycontrol) (vibe-coded, requires tweaks)
+  * [Francescde's fork of joycontrol](https://github.com/Francescde/joycontrol/tree/amiibo_edits) (primarily used for macros, tested on Raspberry Pi)
 
 
 ## My NUXBT Setup
@@ -47,19 +49,19 @@ I then tried running the same NUXBT test command with the switch 2, which worked
 
 The NUXBT webapp worked for either switch, and I continued my testing with the switch 2 (as I knew the switch 1 would have a much high chance of success, I was curious regarding switch 2 compatibility). 
 
-To access the webapp on my windows machine (that was hosting the VM), I disabled the VM's firewall using `sudo ufw disable` and accessed the VM's ip (found in the output of `ip address`) using port 8000. The browser I use is Opera GX, and I went to `http://IPADDRESSOFVM:8000` in the navigation bar. I was able to successfully access the webapp on the host windows machine, with no noticble difference in latency. Side note, up to this point I had the Switch 2 docked, and connected to an additional monitor via HDMI.
+To access the webapp on my Windows machine (that was hosting the VM), I disabled the VM's firewall using `sudo ufw disable` and accessed the VM's ip (found in the output of `ip address`) using port 8000. The browser I use is Opera GX, and I went to `http://IPADDRESSOFVM:8000` in the navigation bar. I was able to successfully access the webapp on the host Windows machine, with no noticble difference in latency. Side note, up to this point I had the Switch 2 docked, and connected to an additional monitor via HDMI.
 
-Searching for a quick and easy method to share access to the VM's local IP address without port forwarding, I discovered Ngrok. I made an account and ran their commands for installation via APT (provided once you login on their website). Finishing setup, I added my authtoken with their provided command. Then, I ran `ngrok http 8000` in a seperate terminal, which provided me with an internet address to access the webapp with. I confirmed the funcionality of the ngrok address by opening it in the host windows machine, which worked without issue. 
+Searching for a quick and easy method to share access to the VM's local IP address without port forwarding, I discovered Ngrok. I made an account and ran their commands for installation via APT (provided once you login on their website). Finishing setup, I added my authtoken with their provided command. Then, I ran `ngrok http 8000` in a seperate terminal, which provided me with an internet address to access the webapp with. I confirmed the funcionality of the ngrok address by opening it in the host Windows machine, which worked without issue. 
 
 I then sent the link to a friend, instructing them to connect a controller to their computer before visiting (they stated it was a generic xbox controller, which likely used standard XInput). I called them via Discord, setting the Switch 2's HDMI output to my capture card (Vivitar Capture Card model VIVRW7310), and using the output as my "camera" in the call. They stated they had around "5ish" seconds of latency, I have not yet tested if streaming the captured output would reduce latency. Regardless, the capture card natively had around a second of latency, comparing capture to raw output.
 
 After around 20 minutes, the ngrok website went offline, and upon checking the VM to troubleshoot, it was extremely slow and unresponsive to the point of being able to login (in less than 10 minutes). Multiple factors could have caused the VM to slowdown. I could have hit a bandwidth limit with ngrok, the finished queue in input.py could have grown too large (see [#49](https://github.com/hannahbee91/nuxbt/pull/49)), or the VM simply could have ran out of resources due to the small amount of CPU cores and memory allocated to it. After encountering this slowdown, I shutdown the VM and created a savestate.
 
 ## Potential Improvements
-* Ideas to Decrease latency
+* Ideas to Decrease Latency
   > (So far, I've only tested a discord call using my capture card as my camera & hosting NUXBT online through the use of ngrok to open port 8000)
   * Lower-latency capture card
-  * Figure out a faster method for the host (server) to recieve communication (such as deciding between WebRTC/websocket)
+  * Figure out a faster method for the host (server) to recieve communication (such as deciding between WebRTC/websocket)([#39](https://github.com/hannahbee91/nuxbt/pull/39)/[#46](https://github.com/hannahbee91/nuxbt/pull/46)/[Dippyshere's NUXBT fork](https://github.com/dippyshere/nuxbt) could provide insight)
   * Using wired communication instead of bluetooth for communication
     * This would involve a microcontroller for communcating with the switch, and replace NUXBT or work alongside it.  (Using something similar to pokemon automation's use of esp32-s3 or like yvbbrjdr's procon)
     * This would also allow for the combination of a bluetooth adapter and microcontroller to have two online controllers, avoiding potential wireless interference from multiple bluetooth adapters
